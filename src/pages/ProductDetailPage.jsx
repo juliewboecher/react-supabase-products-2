@@ -1,39 +1,29 @@
-import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router";
-
-const URL = import.meta.env.VITE_SUPABASE_URL;
-const headers = {
-  apikey: import.meta.env.VITE_SUPABASE_APIKEY,
-  "Content-Type": "application/json"
-};
 
 export default function ProductDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [product, setProduct] = useState(null);
-
-  useEffect(() => {
-    async function loadProduct() {
-      const response = await fetch(`${URL}?id=eq.${id}`, { headers });
-      const data = await response.json();
-      setProduct(data[0]);
-    }
-    loadProduct();
-  }, [id]);
+  const product = {
+    id,
+    title: "Starter Product",
+    price: 0,
+    image: "",
+  };
 
   async function handleDelete() {
     const confirmed = window.confirm("Delete this product?");
     if (confirmed) {
-      await fetch(`${URL}?id=eq.${id}`, { method: "DELETE", headers });
+      // TODO (Trin 5): Implementer DELETE med fetch til `${URL}?id=eq.${id}`.
       navigate("/");
     }
   }
 
-  if (!product) return <p className="status-msg">Loading…</p>;
-
   return (
     <main className="app">
       <h1 className="page-title">Product Details</h1>
+      <p className="status-msg">
+        TODO (Trin 5): Implementer GET af product details med fetch.
+      </p>
 
       <article className="product-detail">
         {product.image ? (
